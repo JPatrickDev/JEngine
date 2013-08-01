@@ -1,6 +1,7 @@
 package me.jack.JEngine.AI.tests;
 
 
+import me.jack.JEngine.AI.Behaviour.Movement.CompletePath;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
 
@@ -28,7 +29,7 @@ public class AStarTests extends BasicGame {
     public TestLevel level = new TestLevel();
 
     public int[] map = new int[(800 / 32) * (600 / 32)];
-    private List<ExampleNode> path;
+    private List<Node> path;
 
     public AStarTests(String title) {
         super(title);
@@ -37,10 +38,10 @@ public class AStarTests extends BasicGame {
 
     int tX;
     int tY;
-    Map<ExampleNode> myMap;
+    Map<Node> myMap;
     @Override
     public void init(GameContainer gameContainer) throws SlickException {
-        player = new BasicEntity((0*5), (0*5), level);
+        player = new BasicEntity((1*32), (1*32), level);
 
         int w = 0;
         int h = 0;
@@ -65,7 +66,7 @@ public class AStarTests extends BasicGame {
                 y++;
             }
             h =y;
-            myMap = new Map<ExampleNode>(w,h, new ExampleFactory());
+            myMap = new Map<Node>(w,h, new BasicNodeFactory());
             for(Point p : points){
                 myMap.setWalkable(p.x,p.y,false);
             }
@@ -81,15 +82,15 @@ public class AStarTests extends BasicGame {
 
 
        // myMap.setWalkable(10,10,false);
-        path = myMap.findPath(0, 0, 5, 5);
-
+        path =  myMap.findPath(1, 1, 12,3);
+        new CompletePath(new  ArrayList<Node>(path),player);
     }
 
     @Override
     public void update(GameContainer gameContainer, int i) throws SlickException {
 
         player.update(i);
-
+        CompletePath.updateAll();
     }
 
     @Override
@@ -125,7 +126,7 @@ public class AStarTests extends BasicGame {
         graphics.fillRect(tX, tY, 32, 32);
 
         graphics.setColor(Color.red);
-        for (ExampleNode n : path) {
+        for (Node n : path) {
             graphics.setColor(Color.orange);
             graphics.fillRect(n.getxPosition()*32, n.getyPosition()*32, 32, 32);
 

@@ -22,8 +22,8 @@ import java.util.List;
 /**
  * A simple example for the usage of this package.
  * 
- * @see ExampleFactory
- * @see ExampleNode
+ * @see BasicNodeFactory
+ * @see Node
  */
 public class ExampleUsage {
 
@@ -31,8 +31,8 @@ public class ExampleUsage {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Map<ExampleNode> myMap = new Map<ExampleNode>(50, 50, new ExampleFactory());
-        List<ExampleNode> path = myMap.findPath(0, 0, 40, 40);
+        Map<Node> myMap = new Map<Node>(50, 50, new BasicNodeFactory());
+        List<Node> path = myMap.findPath(0, 0, 40, 40);
 
         for (int i = 0; i < path.size(); i++) {
             System.out.print("(" + path.get(i).getxPosition() + ", " + path.get(i).getyPosition() + ") -> ");

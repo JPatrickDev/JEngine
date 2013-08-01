@@ -18,13 +18,24 @@
 package me.jack.JEngine.AI.ASTAR;
 
 /**
- * A simple Factory for example nodes.
+ * A simple Example implementation of a Node only overriding the sethCosts
+ * method; uses manhatten method.
  */
-public class ExampleFactory implements NodeFactory {
+public class Node extends AbstractNode {
 
-        @Override
-        public AbstractNode createNode(int x, int y) {
-            return new ExampleNode(x, y);
+        public Node(int xPosition, int yPosition) {
+            super(xPosition, yPosition);
+            // do other init stuff
+        }
+
+        public void sethCosts(AbstractNode endNode) {
+            this.sethCosts((absolute(this.getxPosition() - endNode.getxPosition())
+                    + absolute(this.getyPosition() - endNode.getyPosition()))
+                    * BASICMOVEMENTCOST);
+        }
+
+        private int absolute(int a) {
+            return a > 0 ? a : -a;
         }
 
 }

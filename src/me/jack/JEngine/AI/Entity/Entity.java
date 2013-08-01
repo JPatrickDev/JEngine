@@ -83,4 +83,13 @@ public abstract class Entity {
     public int getMoveSpeed() {
         return this.moveSpeed;
     }
+
+    public Behaviour getBehaviour(){
+        return this.currentBehaviour;
+    }
+
+    public void setBehaviour(Behaviour b){
+        System.out.println("Changing behaviour to:" + b.getClass().getCanonicalName());
+        this.currentBehaviour = b;
+    }
 }

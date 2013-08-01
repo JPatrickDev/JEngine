@@ -38,7 +38,6 @@ package me.jack.JEngine.AI.ASTAR;
  * <p>
  * <code>sethCosts(AbstractNode endAbstractNode)</code>
  * <p>
- * @see ExampleNode#sethCosts(AbstractNode endNode) example Implementation using manhatten method
  * <p>
  *
  * @version 1.0
