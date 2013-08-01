@@ -63,8 +63,8 @@ public class Map<T extends AbstractNode> {
 
     /** width + 1 is size of first dimension of nodes. */
     protected int width;
-    /** higth + 1 is size of second dimension of nodes. */
-    protected int higth;
+    /** height + 1 is size of second dimension of nodes. */
+    protected int height;
 
     /** a Factory to create instances of specified nodes. */
     private NodeFactory nodeFactory;
@@ -75,15 +75,16 @@ public class Map<T extends AbstractNode> {
      * The nodes will be instanciated througth the given nodeFactory.
      *
      * @param width
-     * @param higth
+     * @param height
      * @param nodeFactory 
      */
-    public Map(int width, int higth, NodeFactory nodeFactory) {
-        // TODO check parameters. width and higth should be > 0.
+    public Map(int width, int height, NodeFactory nodeFactory) {
+
+        if(width < 0 || height < 0)throw new IllegalArgumentException("Width and height need to be >0!");
         this.nodeFactory = nodeFactory;        
-        nodes = (T[][]) new AbstractNode[width][higth];
+        nodes = (T[][]) new AbstractNode[width][height];
         this.width = width - 1;
-        this.higth = higth - 1;
+        this.height = height - 1;
         initEmptyNodes();
     }
 
@@ -92,7 +93,7 @@ public class Map<T extends AbstractNode> {
      */
     private void initEmptyNodes() {
         for (int i = 0; i <= width; i++) {
-            for (int j = 0; j <= higth; j++) {
+            for (int j = 0; j <= height; j++) {
                 nodes[i][j] = (T) nodeFactory.createNode(i, j);
             }
         }
@@ -108,7 +109,9 @@ public class Map<T extends AbstractNode> {
      * @param bool
      */
     public void setWalkable(int x, int y, boolean bool) {
-        // TODO check parameter.
+        if(x < 0 || x > width || y < 0 || y > height){
+            throw new IllegalArgumentException("X & Y must be more than 0, but less than w/h");
+        }
         nodes[x][y].setWalkable(bool);
     }
 
@@ -122,7 +125,9 @@ public class Map<T extends AbstractNode> {
      * @return node
      */
     public final T getNode(int x, int y) {
-        // TODO check parameter.
+        if(x < 0 || x > width || y < 0 || y > height){
+            throw new IllegalArgumentException("X & Y must be more than 0, but less than w/h");
+        }
         return nodes[x][y];
     }
 
@@ -139,7 +144,7 @@ public class Map<T extends AbstractNode> {
         }
 
 
-        for (int j = higth; j >= 0; j--) {
+        for (int j = height; j >= 0; j--) {
             g.setColor(Color.white);
             g.fillRect(0,j*32,32,32);
             for (int i = 0; i <= width; i++) {
@@ -202,7 +207,11 @@ public class Map<T extends AbstractNode> {
      * @return
      */
     public final List<T> findPath(int oldX, int oldY, int newX, int newY) {
-        // TODO check input
+
+        if(newX<0 || newY <0|| newX > width || newY > height)throw new IllegalArgumentException("new X and Y must be greater than 0 and less than Width and height");
+
+        if(oldX<0 || oldY <0|| oldX > width || oldY > height)throw new IllegalArgumentException("old X and Y must be greater than 0 and less than Width and height");
+
         openList = new LinkedList<T>();
         closedList = new LinkedList<T>();
         openList.add(nodes[oldX][oldY]); // add starting node to open list
@@ -257,6 +266,7 @@ public class Map<T extends AbstractNode> {
         LinkedList<T> path = new LinkedList<T>();
 
         T curr = goal;
+        int i = 0;
         boolean done = false;
         while (!done) {
             path.addFirst(curr);
@@ -265,7 +275,9 @@ public class Map<T extends AbstractNode> {
             if (curr.equals(start)) {
                 done = true;
             }
+            i++;
         }
+        System.out.println(i);
         return path;
     }
 
@@ -320,7 +332,7 @@ public class Map<T extends AbstractNode> {
             }
         }
 
-        if (y < higth) {
+        if (y < height) {
             temp = this.getNode(x, (y + 1));
             if (temp.isWalkable() && !closedList.contains(temp)) {
                 temp.setIsDiagonaly(false);
@@ -331,7 +343,7 @@ public class Map<T extends AbstractNode> {
 
         // add nodes that are diagonaly adjacent too:
         if (CANMOVEDIAGONALY) {
-            if (x < width && y < higth) {
+            if (x < width && y < height) {
                 temp = this.getNode((x + 1), (y + 1));
                 if (temp.isWalkable() && !closedList.contains(temp)) {
                     temp.setIsDiagonaly(true);
@@ -347,7 +359,7 @@ public class Map<T extends AbstractNode> {
                 }
             }
 
-            if (x > 0 && y < higth) {
+            if (x > 0 && y < height) {
                 temp = this.getNode((x - 1), (y + 1));
                 if (temp.isWalkable() && !closedList.contains(temp)) {
                     temp.setIsDiagonaly(true);
