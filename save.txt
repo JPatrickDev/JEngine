@@ -1,0 +1,11 @@
+10:10
+aaaaaaaaaa
+acaaaaaaaa
+acaabaaaaa
+aacbbbbcaa
+aacccbbbbc
+acccbbcbbc
+acaabbbbcc
+aaccccaccc
+aaaaaaaaaa
+aaaaaaaaaa

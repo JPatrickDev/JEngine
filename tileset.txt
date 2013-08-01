@@ -1,0 +1,5 @@
+/res/spritesheet.png
+16
+0:0:false:a
+1:0:false:b
+2:0:false:c
