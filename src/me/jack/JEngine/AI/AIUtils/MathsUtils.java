@@ -1,4 +1,4 @@
-package me.jack.JEngine.AIUtils;
+package me.jack.JEngine.AI.AIUtils;
 
 import java.awt.Point;
 
@@ -10,8 +10,8 @@ public class MathsUtils {
 
 	
 	public static Vector getVelocityToTarget(int tX,int tY, int cX,int cY){
-		float xSpeed = (tX- cX);
-		float ySpeed = (tY - cX);
+        float xSpeed = (tX - cX) / 3;
+        float ySpeed = (tY - cY) / 3;
 		float factor = (float) (9 / Math
 				.sqrt(xSpeed * xSpeed + ySpeed * ySpeed));
 		xSpeed = xSpeed * factor;
@@ -19,8 +19,8 @@ public class MathsUtils {
 		return new Vector(xSpeed,ySpeed);
 	}
 	public static Vector getVelocityToTarget(int tX,int tY, int cX,int cY,int speed){
-		float xSpeed = (tX- cX);
-		float ySpeed = (tY - cX);
+        float xSpeed = (tX - cX) / 3;
+        float ySpeed = (tY - cY) / 3;
 		float factor = (float) (speed / Math
 				.sqrt(xSpeed * xSpeed + ySpeed * ySpeed));
 		xSpeed = xSpeed * factor;

@@ -1,4 +1,4 @@
-package me.jack.JEngine.AIUtils;
+package me.jack.JEngine.AI.AIUtils;
 
 public class Vector {
 
