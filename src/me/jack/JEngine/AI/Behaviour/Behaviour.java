@@ -20,6 +20,9 @@ public abstract class Behaviour {
     public abstract void update(int delta);
 
     public abstract void renderDebug(Graphics g);
+
+    public abstract void renderDebug(Graphics g, int xOffset, int yOffset);
+
     public void setTarget(Entity e){
         this.target = e;
     }
@@ -30,4 +33,5 @@ public abstract class Behaviour {
     public Entity getOwner(){
         return this.owner;
     }
+
 }

@@ -71,7 +71,7 @@ public class Wander extends Behaviour {
         boolean goodPoint = false;
         while (!goodPoint) {
             Point r = getRandomPoint(aoe);
-            if (getOwner().level.canMove(r.x, r.y)) {
+            if (getOwner().level.canMove(r.x, r.y,this.getOwner())) {
                 target = r;
                 goodPoint = true;
                 targetVector = MathsUtils.getVelocityToTarget(r.x,r.y,(int)getOwner().getHitBox().getCenterX(),(int)getOwner().getHitBox().getCenterY(),getOwner().getMoveSpeed());
@@ -96,12 +96,16 @@ public class Wander extends Behaviour {
     @Override
     public void renderDebug(Graphics g) {
 
+      renderDebug(g,0,0);
+    }
+    @Override
+    public void renderDebug(Graphics g, int x, int y) {
+
         g.setColor(debugColor);
-     //   g.fillRect(aoe.x, aoe.y, aoe.width, aoe.height);
+        //   g.fillRect(aoe.x - x, aoe.y - y, aoe.width, aoe.height);
         g.setColor(Color.white);
 
         if (target != null)
-            g.fillRect(target.x - 16, target.y - 16, 32, 32);
+            g.fillRect((target.x - 16) - x, (target.y - 16) - y, 32, 32);
     }
-
 }

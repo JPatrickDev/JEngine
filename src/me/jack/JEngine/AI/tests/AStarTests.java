@@ -81,9 +81,9 @@ public class AStarTests extends BasicGame {
         }
 
 
-       // myMap.setWalkable(10,10,false);
-        path =  myMap.findPath(1, 1, 12,3);
-        new CompletePath(new  ArrayList<Node>(path),player);
+
+        path =  myMap.findPath(1, 1, 1,6);
+        new CompletePath(new  ArrayList<Node>(path),player,32);
     }
 
     @Override

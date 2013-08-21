@@ -65,7 +65,8 @@ public class Map<T extends AbstractNode> {
     protected int width;
     /** height + 1 is size of second dimension of nodes. */
     protected int height;
-
+    /** tileSize is the size of a tile. Set using setTileSize()*/
+    protected int tileSize;
     /** a Factory to create instances of specified nodes. */
     private NodeFactory nodeFactory;
 
@@ -132,28 +133,40 @@ public class Map<T extends AbstractNode> {
     }
 
     /**
-     * prints map to sto. Feel free to override this method.
+     * Draws map to screen
      * <p>
-     * a player will be represented as "o", an unwakable terrain as "#".
+     * Unwalkable terrian displayed as a red rectangle, passable terrian as green
      * Movement penalty will not be displayed.
+     * This method draws without an offset for scrolling. For a scrollable method, see drawMap(Graphics,int,int)
      */
     public void drawMap(Graphics g) {
+       drawMap(g,0,0);
+    }
+
+    /**
+     * Draws map to screen
+     * <p>
+     * Unwalkable terrian displayed as a red rectangle, passable terrian as green
+     * Movement penalty will not be displayed.
+     * This method draws with an offset for scrolling.
+     */
+    public void drawMap(Graphics g,int offsetX,int offsetY) {
         for (int i = 0; i <= width; i++) {
             g.setColor(Color.white);
-                g.fillRect(i*32,0,32,32);
+            g.fillRect((i*tileSize) - offsetX,0 - offsetY,tileSize,tileSize);
         }
 
 
         for (int j = height; j >= 0; j--) {
             g.setColor(Color.white);
-            g.fillRect(0,j*32,32,32);
+            g.fillRect(0 - offsetX,(j*tileSize) - offsetY,tileSize,tileSize);
             for (int i = 0; i <= width; i++) {
                 if (nodes[i][j].isWalkable()) {
-                   g.setColor(Color.green);
-                    g.fillRect(i*32,j*32,32,32);
+                    g.setColor(Color.green);
+                    g.fillRect((i*tileSize) - offsetX,(j*tileSize) - offsetY,tileSize,tileSize);
                 } else {
                     g.setColor(Color.red);
-                    g.fillRect(i*32,j*32,32,32);
+                    g.fillRect((i*tileSize) - offsetX,(j*tileSize) - offsetY,tileSize,tileSize);
 
                 }
             }
@@ -161,7 +174,7 @@ public class Map<T extends AbstractNode> {
         }
 
         for (int i = 0; i <= width; i++) {
-          //      print(" _"); // boarder of map
+            //      print(" _"); // boarder of map
         }
     }
 
@@ -258,7 +271,7 @@ public class Map<T extends AbstractNode> {
      *
      * @param start
      * @param goal
-     * @return
+     * @resturn
      */
     private List<T> calcPath(T start, T goal) {
      // TODO if invalid nodes are given (eg cannot find from
@@ -271,14 +284,27 @@ public class Map<T extends AbstractNode> {
         while (!done) {
             path.addFirst(curr);
             curr = (T) curr.getPrevious();
-
+            if(curr == null)continue;
             if (curr.equals(start)) {
                 done = true;
             }
             i++;
+            if(i >1000){
+                System.out.println("Ran 1000 times, looping?");
+                break;
+            }
         }
-        System.out.println(i);
+
         return path;
+    }
+
+    /**
+     * Sets the size of a tile, only used for debugging purposes
+     * @param size
+     */
+
+    public void setTileSize(int size){
+        this.tileSize = size;
     }
 
     /**

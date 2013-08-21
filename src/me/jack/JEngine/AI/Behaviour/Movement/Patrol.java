@@ -17,6 +17,7 @@ public class Patrol extends Behaviour{
     private Point point1 = null;
     private Point point2 = null;
 
+
     private int movingTo = 1;
 
     private long waitFor = 1000;
@@ -114,13 +115,17 @@ public class Patrol extends Behaviour{
     }
 
     @Override
-    public void renderDebug(Graphics g) {
-        Rectangle point1rect = new Rectangle((float)point1.getX() - 4,(float)point1.getY()-4,8,8);
-        Rectangle point2rect = new Rectangle((float)point2.getX() - 4,(float)point2.getY()-4,8,8);
+    public void renderDebug(Graphics g, int x,int y) {
+        Rectangle point1rect = new Rectangle(((float)point1.getX() - 4) - x,((float)point1.getY()-4) - y,8,8);
+        Rectangle point2rect = new Rectangle(((float)point2.getX() - 4) - x,((float)point2.getY()-4) - y,8,8);
         g.setColor(Color.pink);
         g.fill(point1rect);
         g.setColor(Color.cyan);
         g.fill(point2rect);
         g.setColor(Color.white);
+    }
+    @Override
+    public void renderDebug(Graphics g) {
+       renderDebug(g,0,0);
     }
 }

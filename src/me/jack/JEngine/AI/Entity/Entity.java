@@ -63,12 +63,12 @@ public abstract class Entity {
     }
 
     public void addX(int x){
-        if(level.canMove(getNewHixBox(this.x + x,y)))
+        if(level.canMove(getNewHixBox(this.x + x,y),this))
         this.x += x;
     }
 
     public void addY(int y){
-        if(level.canMove(getNewHixBox(this.x,this.y + y)))
+        if(level.canMove(getNewHixBox(this.x,this.y + y),this))
         this.y +=y;
     }
 

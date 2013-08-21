@@ -1,5 +1,6 @@
 package me.jack.JEngine.AI.tests;
 
+import me.jack.JEngine.AI.Entity.Entity;
 import me.jack.JEngine.AI.Level.AILevel;
 import org.newdawn.slick.geom.Rectangle;
 
@@ -9,7 +10,7 @@ import org.newdawn.slick.geom.Rectangle;
  */
 public class TestLevel implements AILevel{
     @Override
-    public boolean canMove(int x, int y) {
+    public boolean canMove(int x, int y,Entity entity) {
         boolean can = true;
         can = !(x > 800 || x < 0 || y < 0 || y > 600);
 
@@ -17,7 +18,7 @@ public class TestLevel implements AILevel{
     }
 
     @Override
-    public boolean canMove(Rectangle rect) {
+    public boolean canMove(Rectangle rect,Entity entity) {
         for(Rectangle r: AITESTGame.hitboxes){
             if(r.intersects(rect)){
                 return false;

@@ -30,7 +30,7 @@ public class MoveToPoint extends Behaviour {
         hitbox.setWidth(4);
         hitbox.setHeight(4);
         moveToOne();
-        if(point1 == null)
+        if (point1 == null)
             return;
         Rectangle point = new Rectangle((float) point1.getX(), (float) point1.getY(), 4, 4);
         if (point.intersects(hitbox)) {
@@ -42,8 +42,8 @@ public class MoveToPoint extends Behaviour {
     }
 
     private void moveToOne() {
-    if(point1 == null)
-        return;
+        if (point1 == null)
+            return;
         int tX = (int) point1.getX();
         int tY = (int) point1.getY();
 
@@ -65,13 +65,20 @@ public class MoveToPoint extends Behaviour {
 
     @Override
     public void renderDebug(Graphics g) {
-        Rectangle point1rect = new Rectangle((float) point1.getX() - 4, (float) point1.getY() - 4, 8, 8);
+        renderDebug(g, 0,0);
+    }
+
+    @Override
+    public void renderDebug(Graphics g, int x, int y) {
+        if (point1 == null)
+            return;
+        Rectangle point1rect = new Rectangle(((float) point1.getX() - 4) - x, ((float) point1.getY() - 4) -y, 8, 8);
         g.setColor(Color.pink);
         g.fill(point1rect);
         g.setColor(Color.white);
     }
 
-    public void setTarget(Point p){
+    public void setTarget(Point p) {
         this.point1 = p;
     }
 

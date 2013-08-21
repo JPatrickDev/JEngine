@@ -20,12 +20,14 @@ public class CompletePath{
     private int i = 0;
     private Behaviour old = null;
     protected boolean remove = false;
-    public CompletePath(ArrayList<Node> path,Entity e){
+    private int tileSize;
+    public CompletePath(ArrayList<Node> path,Entity e, int tileSize){
         this.path= path;
         this.e = e;
         this.old = e.getBehaviour();
         e.setBehaviour(new MoveToPoint(e,null));
         paths.add(this);
+        this.tileSize = tileSize;
     }
 
     public void step(){
@@ -34,7 +36,7 @@ public class CompletePath{
             return;
         }
         Node next = path.get(i++);
-        Point p = new Point(next.getxPosition()*32,next.getyPosition() *32);
+        Point p = new Point(next.getxPosition()*tileSize,next.getyPosition() *tileSize);
         ((MoveToPoint)e.getBehaviour()).setTarget(p);
     }
 

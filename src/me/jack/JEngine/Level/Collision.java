@@ -17,6 +17,7 @@ public class Collision {
         for(int x = 0;x!= map.getWidth();x++){
             for(int y = 0;y!= map.getHeight();y++){
                 if(map.getTileProperty(map.getTileId(x,y,map.getLayerCount()-1),"solid","false").equalsIgnoreCase("true")){
+                    System.out.println("Solid@ " + x + " " + y);
                     collisions.add(new Rectangle(x *32,y*32,32,32));
                 }
             }

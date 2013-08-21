@@ -1,5 +1,6 @@
 package me.jack.JEngine.AI.Level;
 
+import me.jack.JEngine.AI.Entity.Entity;
 import org.newdawn.slick.geom.Rectangle;
 
 /**
@@ -8,6 +9,6 @@ import org.newdawn.slick.geom.Rectangle;
  */
 public interface AILevel {
 
-    public boolean canMove(int x,int y);
-    public boolean canMove(Rectangle rect);
+    public boolean canMove(int x,int y,Entity entity);
+    public boolean canMove(Rectangle rect,Entity entity);
 }

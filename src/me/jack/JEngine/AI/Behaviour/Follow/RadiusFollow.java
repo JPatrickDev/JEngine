@@ -6,6 +6,7 @@ import me.jack.JEngine.AI.Entity.Entity;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Circle;
+import org.newdawn.slick.geom.Shape;
 
 /**
  * Author: Jack
@@ -60,12 +61,19 @@ public class RadiusFollow extends Behaviour{
     private Color debugColor = new Color(0,255,33,128);
     @Override
     public void renderDebug(Graphics g) {
+      renderDebug(g,0,0);
+    }
+    @Override
+    public void renderDebug(Graphics g, int x,int y) {
         if(tempEffect == null){
-        g.setColor(debugColor);
-        g.fill(aoe);
-        g.setColor(Color.white);
+            g.setColor(debugColor);
+            Circle temp = aoe;
+            temp.setX(temp.getX() - x);
+            temp.setY(temp.getY() - y);
+            g.fill(temp);
+            g.setColor(Color.white);
         }else{
-         tempEffect.renderDebug(g);
+            tempEffect.renderDebug(g,x,y);
         }
     }
 }

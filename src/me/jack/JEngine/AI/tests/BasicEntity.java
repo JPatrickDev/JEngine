@@ -17,6 +17,7 @@ public class BasicEntity extends Entity {
 
     @Override
     public void update(int delta) {
+        if(currentBehaviour!= null)
         this.currentBehaviour.update(delta);
         if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
             addY(-getMoveSpeed());

@@ -10,6 +10,6 @@ public class Main {
 
 
     public static void main(String[] args){
-        JEngine.start(new AStarTests("AI Tests"), 800, 600);
+        JEngine.start(new AITESTGame("AI Tests"), 800, 600);
     }
 }
